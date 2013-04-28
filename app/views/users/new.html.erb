@@ -1,0 +1,34 @@
+<h1>Welcome Eddie Assembly Employees</h1>
+<h2>Please Create Your Account!</h2>
+
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= f.label :username %>
+    <div>
+    <%= f.text_field :username %>
+    </div>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <div>
+    <%= f.password_field :password %>
+    </div>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %>
+    <div>
+    <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
+  <div class="button"><%= f.submit %></div>
+<% end %>

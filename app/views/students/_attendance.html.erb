@@ -1,0 +1,4 @@
+<%= form_for student, remote: true do |f| %>
+  <%= f.check_box :attending %>
+  <%= f.label :attending, student.name %>
+<% end %>

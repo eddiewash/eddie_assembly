@@ -1,0 +1,52 @@
+<h1>Eddie Assembly Programs</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @programs.each do |program| %>
+  <% if program.avatar.exists? %>
+    <tr>
+      <td><%= link_to image_tag(program.avatar.url(:medium)), program %></td>
+      <td><%= program.name %></td>
+      <td><%= program.date %></td>
+     <% if can? :puts, @program %>
+      <td><%= link_to 'Show', program %></td>
+      <% end %>
+      <% if can? :update, @program %>
+      <td><%= link_to 'Edit', edit_program_path(program) %></td>
+      <% end %>
+      <% if can? :destroy, @program %>
+      <td><%= link_to 'Destroy', program, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% else %>
+    <tr>
+      <td> - </td>
+      <td><%= program.name %></td>
+      <td><%= program.date %></td>
+      <% if can? :puts, @program %>
+      <td><%= link_to 'Show', program %></td>
+      <% end %>
+      <% if can? :update, @program %>
+      <td><%= link_to 'Edit', edit_program_path(program) %></td>
+      <% end %>
+      <% if can? :destroy, @program %>
+      <td><%= link_to 'Destroy', program, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<br />
+
+<% if can? :create, @program %>
+<%= link_to 'New Program', new_program_path %>
+<% end %>

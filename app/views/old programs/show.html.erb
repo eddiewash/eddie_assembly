@@ -1,0 +1,39 @@
+<p>
+<% if @program.avatar.exists? %>
+  <%= image_tag @program.avatar.url(:medium) %>
+<% end %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @program.name %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @program.date %> 
+</p>
+
+<% if cannot? :puts, @program %>
+<p>
+  <b>Class Description:</b>
+  <%= @program.description %>
+</p>
+<% end %>
+
+<% if can? :create, @program %>
+<h3>Attendees: (<%= @program.students.all.count %>)</h3>
+<h2>Student Check In</h2>
+  <% @program.instances.each do |x| %>
+    <%= form_tag update_attendance_path(:program_id => @program.id, :id => x.id), { :method => :put, :class => 'form-horizontal' } do %>
+      <%= label_tag 'attending', nil, :class => 'checkbox' do %>
+        <%= check_box_tag 'attending', true, x.attending? %>
+        <%= x.student.name %>
+      <% end %>
+      <%= submit_tag 'Update attendance', :class => 'btn' %>
+    <% end %>
+  <% end %>
+
+<%= link_to 'Edit', edit_program_path(@program) %>
+<% end %>
+<%= link_to 'Back', programs_path %>
